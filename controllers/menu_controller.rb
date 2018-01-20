@@ -1,24 +1,26 @@
 require_relative '../models/address_book'
 
- class MenuController
-   attr_reader :address_book
+class MenuController
+  attr_reader :address_book
 
-   def initialize
-     @address_book = AddressBook.new
-   end
+  selection = ''
 
-   def main_menu
-     puts "Main Menu - #{address_book.entries.count} entries"
-     puts "1 - View all entries"
-     puts "2 - Create an entry"
-     puts "3 - Search for an entry"
-     puts "4 - Import entries from a CSV"
-     puts "5 - Exit"
-     print "Enter your selection: "
+  def initialize
+    @address_book = AddressBook.new
+  end
 
-     selection = gets.to_i
-     puts "You picked #{selection}"
-   end
+  def main_menu
+    puts "Main Menu - #{address_book.entries.count} entries"
+    puts "1 - View all entries"
+    puts "2 - Create an entry"
+    puts "3 - Search for an entry"
+    puts "4 - Import entries from a CSV"
+    puts "5 - View Entry Number n"
+    puts "6 - Exit"
+    print "Enter your selection: "
+
+    selection = gets.to_i
+    puts "You picked #{selection}"
 
     case selection
       when 1
@@ -38,12 +40,16 @@ require_relative '../models/address_book'
         read_csv
         main_menu
       when 5
+        system "clear"
+        get_entry_number
+      when 6
         puts "Good-bye!"
         exit(0)
       else
         system "clear"
         puts "Sorry, that is not a valid input"
         main_menu
+      end
     end
   end
 
@@ -59,7 +65,6 @@ require_relative '../models/address_book'
   end
 
   def entry_submenu(entry)
-    # #16
     puts "n - next entry"
     puts "d - delete entry"
     puts "e - edit this entry"
@@ -78,6 +83,26 @@ require_relative '../models/address_book'
         system "clear"
         puts "#{selection} is not a valid input"
         entry_submenu(entry)
+    end
+  end
+
+  def get_entry_number
+    puts "What entry number would you like to see? Enter 0 to return to the Main Menu."
+    num = gets.chomp.to_i
+    if (num == 0)
+      system "clear"
+      main_menu
+    elsif (num <= 0 || num > @address_book.entries.length)
+      system "clear"
+      puts "Invalid number. Must be between 1 and the number of entries."
+      get_entry_number
+    else
+      system "clear"
+      puts @address_book.entries[num-1]
+      puts "\nPress <Enter> to continue..."
+      gets
+      system "clear"
+      main_menu
     end
   end
 
