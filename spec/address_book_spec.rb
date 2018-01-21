@@ -93,6 +93,55 @@ RSpec.describe AddressBook do
           entry_five = book.entries[4]
           check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
         end
+
+        it "imports the correct number of entries from second csv" do
+          book.import_from_csv("entries2.csv")
+          book_size = book.entries.size
+          expect(book_size).to eq 7
+        end
+
+        it "imports the 3rd entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_one = book.entries[0]
+          check_entry(entry_one, "Abercrombe", "433-343-1212", "aber@gmail.com")
+        end
+
+        it "imports the 1st entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_two = book.entries[1]
+          check_entry(entry_two, "Blotto", "123-456-2323", "blotto@bluto.com")
+        end
+
+        it "imports the 4th entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_three = book.entries[2]
+          check_entry(entry_three, "Bouchard", "555-555-1212", "Boo@hotmail.com")
+        end
+
+        it "imports the 5th entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_four = book.entries[3]
+          check_entry(entry_four, "Dormond", "234-232-2347", "Dormond@workmail.com")
+        end
+
+        it "imports the 5th entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_five = book.entries[4]
+          check_entry(entry_five, "Felix", "434-343-5896", "Felix@gmail.com")
+        end
+        it "imports the 5th entry from second csv" do
+
+          book.import_from_csv("entries2.csv")
+          entry_six = book.entries[5]
+          check_entry(entry_six, "Francois", "(21)233-34858568", "Frankie@overseas.com")
+        end
+
+        it "imports the 2nd entry from second csv" do
+          book.import_from_csv("entries2.csv")
+          entry_seven = book.entries[6]
+          check_entry(entry_seven, "Zelinski", "344-232-2323", "zelinski@yahoo.com")
+        end
+
       end
     end
   end
