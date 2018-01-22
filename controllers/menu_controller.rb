@@ -16,7 +16,8 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - View Entry Number n"
-    puts "6 - Exit"
+    puts "6 - Delete ALL entries"
+    puts "7 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -43,6 +44,9 @@ class MenuController
         system "clear"
         get_entry_number
       when 6
+        system "clear"
+        nuke_entries
+      when 7
         puts "Good-bye!"
         exit(0)
       else
@@ -123,6 +127,32 @@ class MenuController
         puts "#{selection} is not a valid input"
         puts entry.to_s
         search_submenu(entry)
+    end
+  end
+
+  def nuke_entries
+    count = address_book.entries.count
+    if count == 0
+      system "clear"
+      puts "There are no entries in the phone book. Try creating or importing"
+      main_menu
+      return
+    end
+    puts "Are you sure you want to delete all #{count} entries? (y/n)"
+    ans = gets.chomp
+    if ans == 'y'
+      address_book.nuke_entries
+      system "clear"
+      puts "All #{count} entries deleted"
+      main_menu
+    elsif ans == 'n'
+      system "clear"
+      puts "No entries deleted"
+      main_menu
+    else
+      system "clear"
+      puts "You must enter 'y' or 'n'"
+      nuke_entries
     end
   end
 
