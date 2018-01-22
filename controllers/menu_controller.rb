@@ -16,7 +16,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - View Entry Number n"
-    puts "6 - Delete ALL entries"
+    puts "6 - Nuke ALL entries"
     puts "7 - Exit"
     print "Enter your selection: "
 
@@ -138,16 +138,16 @@ class MenuController
       main_menu
       return
     end
-    puts "Are you sure you want to delete all #{count} entries? (y/n)"
+    puts "Are you sure you want to nuke all #{count} entries? (y/n)"
     ans = gets.chomp
     if ans == 'y'
       address_book.nuke_entries
       system "clear"
-      puts "All #{count} entries deleted"
+      puts "All #{count} entries nuked"
       main_menu
     elsif ans == 'n'
       system "clear"
-      puts "No entries deleted"
+      puts "No entries nuked"
       main_menu
     else
       system "clear"
